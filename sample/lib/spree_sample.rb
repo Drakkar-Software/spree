@@ -27,6 +27,8 @@ module SpreeSample
       Spree::Sample.load_sample('adjustments')
       Spree::Sample.load_sample('payments')
       Spree::Sample.load_sample('store_credit_categories')
+
+      Spree::Sample.load_sample('octobot_samples')
     end
   end
 end
