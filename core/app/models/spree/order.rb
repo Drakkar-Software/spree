@@ -1,4 +1,7 @@
 require_dependency 'spree/order/checkout'
+require_dependency 'spree/order/currency_updater'
+require_dependency 'spree/order/payments'
+require_dependency 'spree/order/store_credit'
 
 module Spree
   class Order < Spree::Base
@@ -125,7 +128,7 @@ module Spree
     before_update :homogenize_line_item_currencies, if: :currency_changed?
 
     with_options presence: true do
-      validates :number, length: { maximum: 32, allow_blank: true }, uniqueness: { allow_blank: true }
+      validates :number, length: { maximum: 32, allow_blank: true }, uniqueness: { allow_blank: true, case_sensitive: false }
       validates :email, length: { maximum: 254, allow_blank: true }, email: { allow_blank: true }, if: :require_email
       validates :item_count, numericality: { greater_than_or_equal_to: 0, less_than: 2**31, only_integer: true, allow_blank: true }
       validates :store

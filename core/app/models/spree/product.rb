@@ -21,7 +21,6 @@
 module Spree
   class Product < Spree::Base
     extend FriendlyId
-    include ActsAsTaggable
     include Spree::ProductScopes
 
     friendly_id :slug_candidates, use: :history
@@ -102,7 +101,7 @@ module Spree
       validates :price, if: proc { Spree::Config[:require_master_price] }
     end
 
-    validates :slug, presence: true, uniqueness: { allow_blank: true }
+    validates :slug, presence: true, uniqueness: { allow_blank: true, case_sensitive: false }
     validate :discontinue_on_must_be_later_than_available_on, if: -> { available_on && discontinue_on }
 
     attr_accessor :option_values_hash
